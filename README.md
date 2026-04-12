@@ -46,6 +46,8 @@
 │   + ai_predictions (cache table)                                │
 └─────────────────────────────────────────────────────────────────┘
 
+```
+
 ## B. API FLOW
 
 1. Admin visits /analytics
@@ -68,4 +70,3 @@ FastAPI → { rankings: [{product_id, name, predicted_qty, trend}] } → CI4
 ### Customer Insights
 CI4 → { customers: [{customer_id, transactions: [{date, amount}]}] } → FastAPI
 FastAPI → { segments: [{customer_id, rfm_score, segment, insights}] } → CI4
-```
