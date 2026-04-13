@@ -13,20 +13,20 @@
 │              CodeIgniter 4 (PHP) — POS Backend                  │
 │                                                                 │
 │  AnalyticsController                                            │
-│  ├── index()        → dashboard view                           │
-│  ├── salesForecast()→ calls AI /predict-sales                  │
-│  ├── productForecast()→ calls AI /predict-products             │
-│  └── customerInsights()→ calls AI /customer-insights           │
+│  ├── index()        → dashboard view                            │
+│  ├── salesForecast()→ calls AI /predict-sales                   │
+│  ├── productForecast()→ calls AI /predict-products              │
+│  └── customerInsights()→ calls AI /customer-insights            │
 │                                                                 │
 │  AiService (CI4 Service class)                                  │
-│  └── uses CI4 HTTP Client → POST to FastAPI                    │
+│  └── uses CI4 HTTP Client → POST to FastAPI                     │
 └──────────────────────────┬──────────────────────────────────────┘
                            │ HTTP/REST (JSON)
                            │ Internal network / localhost
                            ▼
 ┌─────────────────────────────────────────────────────────────────┐
-│              Python FastAPI — AI Microservice                    │
-│              http://localhost:8001                               │
+│              Python FastAPI — AI Microservice                   │
+│              http://localhost:8001                              │
 │                                                                 │
 │  Routers                                                        │
 │  ├── POST /predict-sales       → SalesForecastService           │
@@ -60,13 +60,14 @@
 ## C. DATA FLOW (per feature)
 
 ### Sales Prediction
-CI4 → { daily_sales: [{date, revenue, count}] } → FastAPI
-FastAPI → { predictions: [{date, predicted_revenue, confidence}] } → CI4
+- CI4 → { daily_sales: [{date, revenue, count}] } → FastAPI
+- FastAPI → { predictions: [{date, predicted_revenue, confidence}] } → CI4
 
 ### Product Forecast  
-CI4 → { product_sales: [{product_id, name, daily_qty: [...]}] } → FastAPI
-FastAPI → { rankings: [{product_id, name, predicted_qty, trend}] } → CI4
+- CI4 → { product_sales: [{product_id, name, daily_qty: [...]}] } → FastAPI
+- FastAPI → { rankings: [{product_id, name, predicted_qty, trend}] } → CI4
 
 ### Customer Insights
-CI4 → { customers: [{customer_id, transactions: [{date, amount}]}] } → FastAPI
+- CI4 → { customers: [{customer_id, transactions: [{date, amount}]}] } → 
+- FastAPI
 FastAPI → { segments: [{customer_id, rfm_score, segment, insights}] } → CI4
